@@ -11,7 +11,6 @@ export const getHistory=async()=>{
 }
 export const saveText=async(editedText:string,orignalText:string)=>{
     try{ 
-        console.log(editedText)
         const res=await api.post('/user/save-text',{editedText,orignalText})
 
         return res.data?.data as AuditRecord
