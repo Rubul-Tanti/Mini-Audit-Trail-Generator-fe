@@ -12,7 +12,7 @@ export const getHistory=async()=>{
 export const saveText=async(editedText:string,orignalText:string)=>{
     try{ 
         const orgtext=orignalText||""
-        const res=await api.post('/user/save-text',{editedText:editedText,orignalText:orgtext })
+        const res=await api.post('/user/save-text',{editedText:editedText||"",orignalText:orgtext })
 
         return res.data?.data as AuditRecord
     }catch(e){
