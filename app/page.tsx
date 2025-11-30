@@ -1,7 +1,7 @@
 'use client'
 import { QueryClient, QueryClientProvider, useMutation, useQuery, useQueryClient, } from "@tanstack/react-query"
 import {getHistory, saveText} from "../server/index"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 const queryClient=new QueryClient
 
 
@@ -11,6 +11,14 @@ const EditorPage=()=>{
     const [text,setText]=useState('')
     const [orignalText,setOrignalText]=useState('')
     const queryClient=useQueryClient()
+    const historyRef = useRef<HTMLDivElement>(null);
+
+// Scroll to bottom when history updates
+useEffect(() => {
+  if (historyRef.current) {
+    historyRef.current.scrollTop = historyRef.current.scrollHeight;
+  }
+}, [data]);
     useEffect(()=>{
       if(data){
         setText(data[data.length-1]?.text)
@@ -59,7 +67,7 @@ const EditorPage=()=>{
       <h2 className="text-sm">Total : {data?.length}</h2>
     </div>
 
-    <div className="flex flex-col-reverse max-h-[350px] overflow-y-auto">
+    <div ref={historyRef} className="flex flex-col-reverse max-h-[350px] overflow-y-auto">
       {data?.map((version, i) => (
         <div
           key={version._id}
