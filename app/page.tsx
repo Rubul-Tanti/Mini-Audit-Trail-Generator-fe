@@ -13,8 +13,8 @@ const EditorPage=()=>{
     const queryClient=useQueryClient()
     useEffect(()=>{
       if(data){
-        setText(data[data.length-1].text)
-        setOrignalText(data[data.length-1].text)
+        setText(data[data.length-1]?.text)
+        setOrignalText(data[data.length-1]?.text)
       }
     },[data])
     const handleTextChange=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
@@ -42,7 +42,7 @@ const EditorPage=()=>{
       onChange={handleTextChange}
       value={text}
       placeholder="enter your text"
-      className="w-full p-5 outline-0 border border-zinc-100 shadow min-h-54 rounded-2xl h-[250px] md:h-full"
+      className="w-full p-5 outline-0 border border-zinc-100 shadow max-h-64  rounded-2xl h-[250px] md:h-full"
     />
     <button
       onClick={() => saveMutation.mutate()}
